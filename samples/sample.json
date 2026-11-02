@@ -1,0 +1,16 @@
+{"caption":"Is your final-year project a product or just a demo?\n\nThree common mistakes: no tests, it only runs on your laptop, and no reasons behind your design choices. Swipe for the fixes.\n\nWant mentoring in Bengaluru to build it properly? Registration link in bio.",
+"hashtags":["finalyearproject","engineeringstudents","bengaluru","softwareengineering","cse"],
+"slides":[
+{"title":"3 mistakes that make your final-year project look like a demo","body":""},
+{"title":"1. No tests","body":"Without tests, nobody can trust your code. Even ten good tests show you understand how it behaves."},
+{"title":"2. It only runs on your laptop","body":"If examiners cannot open it, they cannot judge it. Deploy it and add a README with clear run steps."},
+{"title":"3. No reasons for your choices","body":"Why this database? Why this model? Write down the trade-offs. Viva questions often start here."},
+{"title":"The fix: build it like a product","body":"Tests, deployment, documentation, and a clear explanation of every choice."},
+{"title":"Want help building it properly?","body":"Mentoring for final-year CS, IS, AI and ML students in Bengaluru."}],
+"reel":{"scenes":[
+{"narration":"Is your final year project a product, or just a demo?","onscreen":"Product or demo?"},
+{"narration":"Mistake one. No tests. Even ten good tests show how your code behaves.","onscreen":"1. No tests"},
+{"narration":"Mistake two. It only runs on your laptop. Deploy it, so anyone can open it.","onscreen":"2. Laptop only"},
+{"narration":"Mistake three. You cannot explain your choices. Be ready to say why you picked each tool.","onscreen":"3. No reasons"},
+{"narration":"Want mentoring to fix these? Register your team using the link in bio.","onscreen":"Fix it with us"}]},
+"claims_to_verify":[]}

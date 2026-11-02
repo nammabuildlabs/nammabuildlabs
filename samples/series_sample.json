@@ -1,0 +1,4 @@
+{"episode_title":"Spam Email Classifier","caption":"Sample caption for a layout test.","hashtags":["machinelearning","finalyearproject","python","bengaluru","nlp"],
+"clips":[{"action":"She waves.","line":"Hi, I am Nammi, virtual host of NammaBuildLabs. Today: a spam email classifier, and how it learns to sort your inbox."},
+{"action":"She gestures to floating cards.","line":"It reads many labelled emails, learns which words signal spam, then predicts a label for every new message."}],
+"claims_to_verify":[]}

@@ -1,0 +1,20 @@
+name: Hold today's post
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Date to hold, YYYY-MM-DD (blank = today, IST)"
+        required: false
+permissions:
+  contents: write
+jobs:
+  hold:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          D="${{ github.event.inputs.date }}"
+          [ -z "$D" ] && D=$(TZ=Asia/Kolkata date +%F)
+          mkdir -p drafts/$D && touch drafts/$D/HOLD
+          git config user.name "content-bot" && git config user.email "bot@users.noreply.github.com"
+          git add drafts && git commit -m "Hold $D" && git push

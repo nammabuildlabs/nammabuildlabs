@@ -1,0 +1,17 @@
+name: Clean old media
+on:
+  schedule:
+    - cron: "0 4 * * 0"   # Sundays
+  workflow_dispatch:
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install pyyaml requests pillow
+      - run: python run.py cleanup
+        env:
+          MEDIA_REPO: ${{ secrets.MEDIA_REPO }}
+          MEDIA_TOKEN: ${{ secrets.MEDIA_TOKEN }}

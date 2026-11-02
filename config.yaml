@@ -1,0 +1,24 @@
+brand:
+  name: "NammaBuildLabs"
+  handle: "@namma_build_labs"
+  cta: "Registration link in bio"
+  colors: {bg: "#0e1815", fg: "#e8f1ed", accent: "#2dd4bf", muted: "#9fb4ab"}
+start_date: "2026-11-09"        # day 1 of the 30-day calendar
+timezone: "Asia/Kolkata"
+reel_every_n_days: 3            # reel on day 3, 6, 9 ...
+text_model: "gemini-flash-latest"   # Gemini model that writes the scripts (same GEMINI_API_KEY)
+voice: "en-IN-NeerjaNeural"     # edge-tts voice
+
+reel_style: "mascot"            # "mascot" = illustrated host narrates, "text" = text cards only
+
+daily_format: "series"          # "series" = daily AI video episode at 9:00 IST, "carousel" = slides + reel every 3rd day
+series:
+  rotation: [beginner, beginner, intermediate, advanced]   # order projects are picked; episodes per project: 1 / 2 / 3
+  veo_model: "veo-3.1-fast-generate-preview"               # cheaper; use "veo-3.1-generate-preview" for best quality
+  reference_image: "assets/host_reference.png"
+  logo: "assets/logo-mark.png"
+  host_prompt: >-
+    Vertical 9:16 animated video, about 8 seconds, stylised soft-shaded 3D animation. The host Nammi, a friendly
+    young Indian woman in her early 20s with round dark glasses, long dark hair and a teal hoodie, exactly as in the
+    reference image. Medium close-up, centred, slow push-in. Dark navy studio background with a soft teal, violet and
+    pink glow, a few floating translucent cards and small glowing cubes.

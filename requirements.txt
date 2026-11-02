@@ -1,0 +1,6 @@
+pillow
+pyyaml
+edge-tts
+boto3
+requests
+google-genai
