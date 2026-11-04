@@ -88,8 +88,10 @@ def episode_script(cfg, ep):
               else "The first line starts with: Welcome back.")
     closer = ("The last line ends with a short invite: Want a mentor to build it with you? Registration link in bio."
               if ep["part"] == ep["parts"] else "The last line teases the next part.")
+    angle = (f"Suggested angle (use it, but leave out anything you are unsure about): {ep['note']}\n"
+             if ep.get("note") else "")
     user = (f"Project: {ep['title']}\nLevel: {ep['level']}\nEpisode {ep['part']} of {ep['parts']}. Cover: {role}.\n"
-            f"{opener} {closer}\n\nReturn JSON with keys:\n"
+            f"{angle}{opener} {closer}\n\nReturn JSON with keys:\n"
             "episode_title: string\n"
             f"caption: string, at most 600 characters, hook first, ends with: Search \"{ep['title'].lower()}\" on GitHub for examples.\n"
             "hashtags: list of at most 5 strings without #\n"

@@ -6,6 +6,7 @@ PARTS = {"beginner": 1, "intermediate": 2, "advanced": 3}   # episodes per proje
 def queue(cfg):
     """Deterministic episode list. Day N of the series = queue[N % len(queue)]."""
     P = json.load(open("projects.json"))
+    notes = json.load(open("project_notes.json"))   # optional angle per title: dataset, model, tools
     ptr = {k: 0 for k in P}
     out = []
     while any(ptr[k] < len(P[k]) for k in P):
@@ -14,5 +15,6 @@ def queue(cfg):
                 title = P[lvl][ptr[lvl]]
                 ptr[lvl] += 1
                 n = PARTS[lvl]
-                out += [{"title": title, "level": lvl, "part": i + 1, "parts": n} for i in range(n)]
+                out += [{"title": title, "level": lvl, "part": i + 1, "parts": n, "note": notes.get(title, "")}
+                        for i in range(n)]
     return out
