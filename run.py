@@ -109,8 +109,9 @@ def draft_series(cfg, d, sample):
         from concurrent.futures import ThreadPoolExecutor
         from src.veo import gen_clip
         paths = [f"{out}/clip{i + 1}.mp4" for i in range(len(script["clips"]))]
-        print(f"Script ready for {ep['title']} (part {ep['part']}/{ep['parts']}). Making {len(paths)} clips at the same time...", flush=True)
-        with ThreadPoolExecutor(max_workers=len(paths)) as pool:
+        print(f"Script ready for {ep['title']} (part {ep['part']}/{ep['parts']}). Making {len(paths)} clips...", flush=True)
+        # One at a time by default: sending both together can hit Google's quota (RESOURCE_EXHAUSTED).
+        with ThreadPoolExecutor(max_workers=max(1, cfg["series"].get("parallel_clips", 1))) as pool:
             futs = [pool.submit(gen_clip, cfg, c["action"], c["line"], p, f"clip {i + 1}")
                     for i, (c, p) in enumerate(zip(script["clips"], paths))]
             clips = [f.result() for f in futs]

@@ -73,12 +73,20 @@ def gen_clip(cfg, action, line, out_path, label="clip"):
         response_format={"type": "video", "aspect_ratio": "9:16", "resolution": "720p"})
     limit = s.get("video_timeout_s", 12 * 60)   # hard stop per request
     it = None
-    for i in range(2):   # retry only quick temporary errors (429, 5xx, dropped connection)
+    waits = [30, 60, 120]   # pauses before attempts 2, 3, 4
+    for i in range(len(waits) + 1):   # retry only temporary problems (429, 5xx, dropped connection, RESOURCE_EXHAUSTED)
         t0 = time.time()
-        _log(label, f"asking Gemini for the video (attempt {i + 1}/2, waits up to {max(1, limit // 60)} min)...")
+        _log(label, f"asking Gemini for the video (attempt {i + 1}/{len(waits) + 1}, waits up to {max(1, limit // 60)} min)...")
         try:
             it = _create(client, kwargs, label, limit)
             _log(label, f"finished with status {it.status} after {int(time.time() - t0)}s")
+            if it.status == "failed" and "RESOURCE_EXHAUSTED" in str(getattr(it, "errors", "")):
+                # Google says only successfully generated tokens are charged, so this is safe to retry.
+                if i == len(waits):
+                    break
+                _log(label, f"Google is out of quota/capacity right now (RESOURCE_EXHAUSTED); retrying in {waits[i]}s")
+                time.sleep(waits[i])
+                continue
             break
         except TimeoutError as e:
             # Not retried: Google may still finish this request and bill it, and a retry would pay twice.
@@ -90,9 +98,9 @@ def gen_clip(cfg, action, line, out_path, label="clip"):
         except (errors.APIError, compat_errors.APIError, httpx.TransportError) as e:
             code, retry = _temporary(e)
             _log(label, f"Gemini returned {code} after {int(time.time() - t0)}s")
-            if not retry or i == 1:
+            if not retry or i == len(waits):
                 raise
-            time.sleep(30)
+            time.sleep(waits[i])
     if it is None or it.status != "completed":
         raise RuntimeError(f"Video not completed: status {getattr(it, 'status', '?')}, errors {getattr(it, 'errors', None)}")
     if it.output_video is None or not it.output_video.data:
