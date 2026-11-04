@@ -10,10 +10,10 @@ jobs:
         with: { python-version: "3.12" }
       - run: pip install -r requirements.txt
       - name: Script writer (Gemini text)
-        run: python run.py llm-test
+        run: python -u run.py llm-test
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      - run: python run.py veo-test
+      - run: python -u run.py veo-test
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       - uses: actions/upload-artifact@v4

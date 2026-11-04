@@ -100,14 +100,21 @@ def draft_series(cfg, d, sample):
     out = f"out/{d}"
     os.makedirs(out, exist_ok=True)
     clips = []
-    for i, c in enumerate(script["clips"]):
-        p = f"{out}/clip{i + 1}.mp4"
-        if dry:
+    if dry:
+        for i, c in enumerate(script["clips"]):
+            p = f"{out}/clip{i + 1}.mp4"
             shutil.copy(os.environ["TEST_CLIP"], p)
-        else:
-            from src.veo import gen_clip
-            gen_clip(cfg, c["action"], c["line"], p)
-        clips.append(p)
+            clips.append(p)
+    else:
+        from concurrent.futures import ThreadPoolExecutor
+        from src.veo import gen_clip
+        paths = [f"{out}/clip{i + 1}.mp4" for i in range(len(script["clips"]))]
+        print(f"Script ready for {ep['title']} (part {ep['part']}/{ep['parts']}). Making {len(paths)} clips at the same time...", flush=True)
+        with ThreadPoolExecutor(max_workers=len(paths)) as pool:
+            futs = [pool.submit(gen_clip, cfg, c["action"], c["line"], p, f"clip {i + 1}")
+                    for i, (c, p) in enumerate(zip(script["clips"], paths))]
+            clips = [f.result() for f in futs]
+    print("Clips done. Joining them and adding the captions...", flush=True)
     video, cover = assemble(cfg, ep, script, clips, out)
     tags = " ".join("#" + t.lstrip("#") for t in script["hashtags"][:5])
     caption = script["caption"].strip() + "\n\n" + tags + "\n\nHosted by Nammi, our AI virtual host."

@@ -16,7 +16,9 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg fonts-dejavu-core
       - run: pip install -r requirements.txt
       - run: echo "REEL_DATE=$(TZ=Asia/Kolkata date +%F)" >> $GITHUB_ENV
-      - run: python run.py draft
+      - name: Make the video
+        timeout-minutes: 30
+        run: python -u run.py draft
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}

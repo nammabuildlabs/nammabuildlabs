@@ -1,6 +1,7 @@
 """One short talking clip of the host from Gemini Omni Flash, via the Interactions API (needs GEMINI_API_KEY).
 (Veo 3.1 Preview was shut down on 2026-10-22; the file name is kept so the rest of the engine is unchanged.)"""
 import base64, mimetypes, time
+from .deadline import call_with_deadline
 
 
 def _prompt(cfg, action, line):
@@ -15,12 +16,16 @@ def _temporary(e):
     """Status code (or error name) and whether it is worth retrying. The Interactions API raises its own APIError
     classes (status_code attribute), different from the older models API (code attribute), so handle both."""
     code = getattr(e, "status_code", None) or getattr(e, "code", None)
-    if code is None:   # dropped connection or timeout: no status code
+    if code is None:   # dropped connection: no status code
         return type(e).__name__, True
     return code, code in (429, 500, 502, 503, 504)
 
 
-def gen_clip(cfg, action, line, out_path):
+def _log(label, msg):
+    print(f"[{time.strftime('%H:%M:%S')}] {label}: {msg}", flush=True)
+
+
+def gen_clip(cfg, action, line, out_path, label="clip"):
     import httpx
     from google import genai
     from google.genai import errors
@@ -34,20 +39,31 @@ def gen_clip(cfg, action, line, out_path):
         model=s.get("video_model", "gemini-omni-1.1-flash"),
         input=[image, {"type": "text", "text": _prompt(cfg, action, line)}],
         response_format={"type": "video", "aspect_ratio": "9:16", "resolution": "720p"})
-    last = None
-    for i in range(3):   # retry temporary errors (429, 5xx, dropped connection, timeout)
+    limit = s.get("video_timeout_s", 12 * 60)   # hard stop per request
+    it = None
+    for i in range(2):   # retry only quick temporary errors (429, 5xx, dropped connection)
+        t0 = time.time()
+        _log(label, f"asking Gemini for the video (attempt {i + 1}/2, waits up to {max(1, limit // 60)} min)...")
         try:
-            it = client.interactions.create(**kwargs)
+            it = call_with_deadline(lambda: client.interactions.create(**kwargs), limit, "video request")
+            _log(label, f"video came back after {int(time.time() - t0)}s")
             break
+        except TimeoutError as e:
+            # Not retried: Google may still finish this request and bill it, and a retry would pay twice.
+            raise RuntimeError(f"{e} Not retrying, because Google may still finish and bill it. "
+                               "Check usage in AI Studio before running again.") from e
+        except httpx.TimeoutException as e:
+            raise RuntimeError(f"The video connection timed out ({type(e).__name__}). Not retrying, to avoid being billed "
+                               "twice. Check usage in AI Studio before running again.") from e
         except (errors.APIError, compat_errors.APIError, httpx.TransportError) as e:
-            last = e
             code, retry = _temporary(e)
-            if not retry or i == 2:
+            _log(label, f"Gemini returned {code} after {int(time.time() - t0)}s")
+            if not retry or i == 1:
                 raise
-            print(f"Video model: {code}, retrying in {30 * (i + 1)}s ({i + 1}/2)")
-            time.sleep(30 * (i + 1))
-    if it.output_video is None or not it.output_video.data:
-        raise RuntimeError(f"No video returned (status {getattr(it, 'status', '?')}). Last error: {last}")
+            time.sleep(30)
+    if it is None or it.output_video is None or not it.output_video.data:
+        raise RuntimeError(f"No video returned (status {getattr(it, 'status', '?')}).")
     with open(out_path, "wb") as f:
         f.write(base64.b64decode(it.output_video.data))
+    _log(label, f"saved {out_path}")
     return out_path

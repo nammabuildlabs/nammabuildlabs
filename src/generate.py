@@ -35,20 +35,21 @@ def _llm(cfg, system, user, max_tokens=8192, attempts=3):
     import httpx
     from google import genai
     from google.genai import errors, types
+    from .deadline import call_with_deadline
     client = genai.Client()
     models = [cfg.get("text_model", "gemini-flash-latest")] + list(cfg.get("text_model_fallbacks") or [])
     last = None
     for model in models:
         for i in range(attempts):
             try:
-                r = client.models.generate_content(
+                r = call_with_deadline(lambda: client.models.generate_content(
                     model=model, contents=user,
                     config=types.GenerateContentConfig(system_instruction=system, response_mime_type="application/json",
-                                                       max_output_tokens=max_tokens, temperature=0.7))
+                                                       max_output_tokens=max_tokens, temperature=0.7)), 180, "script request")
                 if model != models[0]:
                     print(f"Script written by fallback model {model}")
                 return r.text
-            except (errors.APIError, httpx.TransportError) as e:
+            except (errors.APIError, httpx.TransportError, TimeoutError) as e:
                 last = e
                 code = getattr(e, "code", None) or type(e).__name__   # a dropped connection has no status code
                 if code == 404:
