@@ -26,26 +26,40 @@ def _parse(text):
     return json.loads(text[text.index("{"): text.rindex("}") + 1])
 
 
-def _llm(cfg, system, user, max_tokens=8192, attempts=6):
+def _llm(cfg, system, user, max_tokens=8192, attempts=3):
     """Ask Gemini (Google AI Studio key) for JSON. Uses GEMINI_API_KEY.
-    Retries temporary errors (429 and 5xx, e.g. 503 'high demand') with a growing wait."""
+    Tries text_model first, then each model in text_model_fallbacks. On a temporary error (429 or 5xx, e.g. 503
+    'high demand') it waits briefly and retries, then moves to the next model. An unknown model name (404) is skipped."""
     import time
     from google import genai
     from google.genai import errors, types
     client = genai.Client()
-    for i in range(attempts):
-        try:
-            r = client.models.generate_content(
-                model=cfg.get("text_model", "gemini-flash-latest"), contents=user,
-                config=types.GenerateContentConfig(system_instruction=system, response_mime_type="application/json",
-                                                   max_output_tokens=max_tokens, temperature=0.7))
-            return r.text
-        except errors.APIError as e:
-            if e.code not in (429, 500, 502, 503, 504) or i == attempts - 1:
-                raise
-            wait = 30 * (i + 1)   # 30s, 60s, 90s, 120s, 150s: about 7.5 minutes in total
-            print(f"Gemini {e.code}, retrying in {wait}s ({i + 1}/{attempts - 1})")
-            time.sleep(wait)
+    models = [cfg.get("text_model", "gemini-flash-latest")] + list(cfg.get("text_model_fallbacks") or [])
+    last = None
+    for model in models:
+        for i in range(attempts):
+            try:
+                r = client.models.generate_content(
+                    model=model, contents=user,
+                    config=types.GenerateContentConfig(system_instruction=system, response_mime_type="application/json",
+                                                       max_output_tokens=max_tokens, temperature=0.7))
+                if model != models[0]:
+                    print(f"Script written by fallback model {model}")
+                return r.text
+            except errors.APIError as e:
+                last = e
+                if e.code == 404:
+                    print(f"Model {model} not found, skipping")
+                    break
+                if e.code not in (429, 500, 502, 503, 504):
+                    raise
+                if i < attempts - 1:
+                    wait = 15 * (i + 1)   # 15s, 30s
+                    print(f"{model}: Gemini {e.code}, retrying in {wait}s ({i + 1}/{attempts - 1})")
+                    time.sleep(wait)
+                else:
+                    print(f"{model}: still unavailable, trying the next model")
+    raise last
 
 
 def generate(cfg, entry, want_reel):

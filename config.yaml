@@ -7,6 +7,7 @@ start_date: "2026-11-04"        # day 1 of the 30-day calendar
 timezone: "Asia/Kolkata"
 reel_every_n_days: 3            # reel on day 3, 6, 9 ...
 text_model: "gemini-flash-latest"   # Gemini model that writes the scripts (same GEMINI_API_KEY)
+text_model_fallbacks: ["gemini-flash-lite-latest", "gemini-pro-latest"]   # tried in order if the main model is overloaded
 voice: "en-IN-NeerjaNeural"     # edge-tts voice
 
 reel_style: "mascot"            # "mascot" = illustrated host narrates, "text" = text cards only
