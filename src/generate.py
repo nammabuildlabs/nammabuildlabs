@@ -26,16 +26,26 @@ def _parse(text):
     return json.loads(text[text.index("{"): text.rindex("}") + 1])
 
 
-def _llm(cfg, system, user, max_tokens=8192):
-    """Ask Gemini (Google AI Studio key) for JSON. Uses GEMINI_API_KEY."""
+def _llm(cfg, system, user, max_tokens=8192, attempts=6):
+    """Ask Gemini (Google AI Studio key) for JSON. Uses GEMINI_API_KEY.
+    Retries temporary errors (429 and 5xx, e.g. 503 'high demand') with a growing wait."""
+    import time
     from google import genai
-    from google.genai import types
+    from google.genai import errors, types
     client = genai.Client()
-    r = client.models.generate_content(
-        model=cfg.get("text_model", "gemini-flash-latest"), contents=user,
-        config=types.GenerateContentConfig(system_instruction=system, response_mime_type="application/json",
-                                           max_output_tokens=max_tokens, temperature=0.7))
-    return r.text
+    for i in range(attempts):
+        try:
+            r = client.models.generate_content(
+                model=cfg.get("text_model", "gemini-flash-latest"), contents=user,
+                config=types.GenerateContentConfig(system_instruction=system, response_mime_type="application/json",
+                                                   max_output_tokens=max_tokens, temperature=0.7))
+            return r.text
+        except errors.APIError as e:
+            if e.code not in (429, 500, 502, 503, 504) or i == attempts - 1:
+                raise
+            wait = 30 * (i + 1)   # 30s, 60s, 90s, 120s, 150s: about 7.5 minutes in total
+            print(f"Gemini {e.code}, retrying in {wait}s ({i + 1}/{attempts - 1})")
+            time.sleep(wait)
 
 
 def generate(cfg, entry, want_reel):
