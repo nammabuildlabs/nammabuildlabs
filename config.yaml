@@ -3,7 +3,7 @@ brand:
   handle: "@namma_build_labs"
   cta: "Registration link in bio"
   colors: {bg: "#0e1815", fg: "#e8f1ed", accent: "#2dd4bf", muted: "#9fb4ab"}
-start_date: "2026-11-09"        # day 1 of the 30-day calendar
+start_date: "2026-11-04"        # day 1 of the 30-day calendar
 timezone: "Asia/Kolkata"
 reel_every_n_days: 3            # reel on day 3, 6, 9 ...
 text_model: "gemini-flash-latest"   # Gemini model that writes the scripts (same GEMINI_API_KEY)
