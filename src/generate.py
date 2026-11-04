@@ -29,8 +29,10 @@ def _parse(text):
 def _llm(cfg, system, user, max_tokens=8192, attempts=3):
     """Ask Gemini (Google AI Studio key) for JSON. Uses GEMINI_API_KEY.
     Tries text_model first, then each model in text_model_fallbacks. On a temporary error (429 or 5xx, e.g. 503
-    'high demand') it waits briefly and retries, then moves to the next model. An unknown model name (404) is skipped."""
+    'high demand', or a dropped connection or timeout) it waits briefly and retries, then moves to the next model.
+    An unknown model name (404) is skipped."""
     import time
+    import httpx
     from google import genai
     from google.genai import errors, types
     client = genai.Client()
@@ -46,16 +48,17 @@ def _llm(cfg, system, user, max_tokens=8192, attempts=3):
                 if model != models[0]:
                     print(f"Script written by fallback model {model}")
                 return r.text
-            except errors.APIError as e:
+            except (errors.APIError, httpx.TransportError) as e:
                 last = e
-                if e.code == 404:
+                code = getattr(e, "code", None) or type(e).__name__   # a dropped connection has no status code
+                if code == 404:
                     print(f"Model {model} not found, skipping")
                     break
-                if e.code not in (429, 500, 502, 503, 504):
+                if isinstance(e, errors.APIError) and code not in (429, 500, 502, 503, 504):
                     raise
                 if i < attempts - 1:
                     wait = 15 * (i + 1)   # 15s, 30s
-                    print(f"{model}: Gemini {e.code}, retrying in {wait}s ({i + 1}/{attempts - 1})")
+                    print(f"{model}: Gemini {code}, retrying in {wait}s ({i + 1}/{attempts - 1})")
                     time.sleep(wait)
                 else:
                     print(f"{model}: still unavailable, trying the next model")

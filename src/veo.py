@@ -11,9 +11,20 @@ def _prompt(cfg, action, line):
             "Natural lip sync. No background music. No on-screen text, captions, subtitles, logos or watermarks.")
 
 
+def _temporary(e):
+    """Status code (or error name) and whether it is worth retrying. The Interactions API raises its own APIError
+    classes (status_code attribute), different from the older models API (code attribute), so handle both."""
+    code = getattr(e, "status_code", None) or getattr(e, "code", None)
+    if code is None:   # dropped connection or timeout: no status code
+        return type(e).__name__, True
+    return code, code in (429, 500, 502, 503, 504)
+
+
 def gen_clip(cfg, action, line, out_path):
+    import httpx
     from google import genai
     from google.genai import errors
+    from google.genai._gaos.lib import compat_errors
     s = cfg["series"]
     client = genai.Client()
     ref = s["reference_image"]
@@ -24,15 +35,16 @@ def gen_clip(cfg, action, line, out_path):
         input=[image, {"type": "text", "text": _prompt(cfg, action, line)}],
         response_format={"type": "video", "aspect_ratio": "9:16", "resolution": "720p"})
     last = None
-    for i in range(3):   # retry temporary errors (429 and 5xx)
+    for i in range(3):   # retry temporary errors (429, 5xx, dropped connection, timeout)
         try:
             it = client.interactions.create(**kwargs)
             break
-        except errors.APIError as e:
+        except (errors.APIError, compat_errors.APIError, httpx.TransportError) as e:
             last = e
-            if e.code not in (429, 500, 502, 503, 504) or i == 2:
+            code, retry = _temporary(e)
+            if not retry or i == 2:
                 raise
-            print(f"Video model: Gemini {e.code}, retrying in {30 * (i + 1)}s ({i + 1}/2)")
+            print(f"Video model: {code}, retrying in {30 * (i + 1)}s ({i + 1}/2)")
             time.sleep(30 * (i + 1))
     if it.output_video is None or not it.output_video.data:
         raise RuntimeError(f"No video returned (status {getattr(it, 'status', '?')}). Last error: {last}")
