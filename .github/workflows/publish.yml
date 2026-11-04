@@ -9,6 +9,7 @@ on:
         required: false
 permissions:
   contents: write
+  actions: read
 jobs:
   publish:
     if: github.event_name == 'workflow_dispatch' || vars.AUTO_PUBLISH == 'true'
@@ -19,9 +20,21 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12", cache: pip }
       - run: pip install pyyaml requests pillow
+      - name: Fetch the video made by the draft job
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          D="${{ github.event.inputs.date }}"
+          [ -z "$D" ] && D=$(TZ=Asia/Kolkata date +%F)
+          mkdir -p "out/$D"
+          for RUN in $(gh run list --workflow=draft.yml --status=success --limit 10 --json databaseId -q '.[].databaseId'); do
+            gh run download "$RUN" -n "reel-$D" -D "out/$D" && break
+          done
+          ls -la "out/$D" || true
       - run: python run.py publish ${{ github.event.inputs.date && format('--date {0}', github.event.inputs.date) || '' }}
         env:
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_GRAPH_BASE: ${{ vars.IG_GRAPH_BASE }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}

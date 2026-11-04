@@ -9,7 +9,7 @@ from datetime import date, datetime
 from zoneinfo import ZoneInfo
 import yaml
 from src import render
-from src.notify import notify
+from src.notify import notify, notify_video
 
 
 def load():
@@ -114,14 +114,21 @@ def draft_series(cfg, d, sample):
     print(f"Episode: {ep['title']} (part {ep['part']}/{ep['parts']}, {ep['level']}) -> {video}")
     if dry or os.environ.get("SKIP_UPLOAD"):
         return
-    from src.storage import upload
+    direct = cfg.get("hosting") == "direct"
+    if direct:
+        reel_rec = {"file": video}
+    else:
+        from src.storage import upload
+        reel_rec = {"url": upload(video, f"{d}/reel.mp4"), "cover": upload(cover, f"{d}/cover.jpg")}
     rec = {"date": str(d), "day": n + 1, "pillar": ep["level"], "topic": f"{ep['title']} (part {ep['part']}/{ep['parts']})",
            "caption": caption, "claims_to_verify": script.get("claims_to_verify", []), "slides": [],
-           "reel": {"url": upload(video, f"{d}/reel.mp4"), "cover": upload(cover, f"{d}/cover.jpg")},
+           "reel": reel_rec,
            "ids": {}, "published": False}
     save(rec)
+    if direct:
+        notify_video(video, f"Preview: {rec['topic']}")
     claims = "\n".join("- " + c for c in rec["claims_to_verify"]) or "- none flagged"
-    notify(f"Video ready for {d}: {rec['topic']}\nPreview: {rec['reel']['url']}\n\nCheck these claims:\n{claims}\n\n"
+    notify(f"Video ready for {d}: {rec['topic']}\nPreview: {rec['reel'].get('url', 'the video sent above')}\n\nCheck these claims:\n{claims}\n\n"
            f"Caption:\n{caption}\n\nIt will publish at 9:00 IST if AUTO_PUBLISH is on. To stop it: GitHub > Actions > Hold today's post.")
 
 
@@ -133,7 +140,7 @@ def veo_test(cfg):
 
 
 def publish(cfg, d):
-    from src.instagram import publish_carousel, publish_reel
+    from src.instagram import publish_carousel, publish_reel, publish_reel_file
     path = f"drafts/{d}/post.json"
     if not os.path.exists(path):
         sys.exit(f"No draft found at {path}")
@@ -150,7 +157,10 @@ def publish(cfg, d):
             ids["carousel"] = publish_carousel(rec["slides"], rec["caption"])
             save(rec)
         if rec["reel"] and "reel" not in ids:
-            ids["reel"] = publish_reel(rec["reel"]["url"], rec["caption"], rec["reel"].get("cover"))
+            if rec["reel"].get("file"):
+                ids["reel"] = publish_reel_file(rec["reel"]["file"], rec["caption"])
+            else:
+                ids["reel"] = publish_reel(rec["reel"]["url"], rec["caption"], rec["reel"].get("cover"))
             save(rec)
         rec["published"] = True
         save(rec)
@@ -164,7 +174,7 @@ def publish(cfg, d):
 def health():
     import requests
     from src.instagram import GRAPH
-    r = requests.get(f"{GRAPH}/me", params={"fields": "user_id,username", "access_token": os.environ["IG_ACCESS_TOKEN"]}, timeout=30)
+    r = requests.get(f"{GRAPH}/{os.environ['IG_USER_ID']}", params={"fields": "username", "access_token": os.environ["IG_ACCESS_TOKEN"]}, timeout=30)
     if not r.ok:
         notify(f"Weekly check FAILED: Instagram rejected the token ({r.status_code}). Refresh IG_ACCESS_TOKEN. {r.text[:200]}")
         sys.exit(1)

@@ -22,3 +22,6 @@ series:
     young Indian woman in her early 20s with round dark glasses, long dark hair and a teal hoodie, exactly as in the
     reference image. Medium close-up, centred, slow push-in. Dark navy studio background with a soft teal, violet and
     pink glow, a few floating translucent cards and small glowing cubes.
+
+hosting: "direct"                # "direct" = upload the video straight to Instagram (Facebook Login route, no public hosting)
+                                 # "public" = host it at a public link first (R2 or GitHub Pages) and give Instagram the link

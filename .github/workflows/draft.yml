@@ -15,9 +15,14 @@ jobs:
         with: { python-version: "3.12", cache: pip }
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg fonts-dejavu-core
       - run: pip install -r requirements.txt
+      - run: echo "REEL_DATE=$(TZ=Asia/Kolkata date +%F)" >> $GITHUB_ENV
       - run: python run.py draft
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_KEY: ${{ secrets.R2_KEY }}
+          R2_SECRET: ${{ secrets.R2_SECRET }}
           MEDIA_REPO: ${{ secrets.MEDIA_REPO }}
           MEDIA_TOKEN: ${{ secrets.MEDIA_TOKEN }}
           PUBLIC_BASE: ${{ secrets.PUBLIC_BASE }}
@@ -30,6 +35,13 @@ jobs:
           git add drafts
           git commit -m "Draft $(date -u +%F)" || echo "nothing to commit"
           git push
+      - name: Keep the video for the 09:00 publish job
+        uses: actions/upload-artifact@v4
+        with:
+          name: reel-${{ env.REEL_DATE }}
+          path: out/${{ env.REEL_DATE }}/reel.mp4
+          retention-days: 5
+          if-no-files-found: ignore
       - name: Alert on failure
         if: failure()
         run: python run.py alert --msg "Draft job failed. Open GitHub Actions to see why."

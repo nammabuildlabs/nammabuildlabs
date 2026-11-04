@@ -16,5 +16,5 @@ jobs:
           D="${{ github.event.inputs.date }}"
           [ -z "$D" ] && D=$(TZ=Asia/Kolkata date +%F)
           mkdir -p drafts/$D && touch drafts/$D/HOLD
-          git config user.name "content-bot" && git config user.email "bot@users.noreply.github.com"
+          git config user.name "nammabuildlabs" && git config user.email "nammabuildlabs@gmail.com"
           git add drafts && git commit -m "Hold $D" && git push

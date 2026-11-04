@@ -51,3 +51,6 @@ approved by you, then published through the Instagram Graph API.
 
 ## Video hosting
 Default is a free public GitHub repo served by GitHub Pages (`MEDIA_REPO`, `MEDIA_TOKEN`, `PUBLIC_BASE`). Google keeps Veo output for only 2 days and requires your API key to download it, so each clip is saved immediately and re-hosted. R2 or any S3 bucket still works if you set the `R2_*` variables instead. See SETUP-GUIDE.md Step 4.
+
+## Direct upload (no public hosting)
+`hosting: "direct"` (default) sends each finished video straight to Instagram with Meta's resumable upload, so no R2 bucket or public link is needed. The 07:00 job saves the video as a GitHub Actions artifact (kept 5 days) and sends it to Telegram as a video; the 09:00 job downloads it and uploads it to Instagram. This needs the Facebook Login route (a Facebook Page, a Page access token and the repository variable `IG_GRAPH_BASE=https://graph.facebook.com/v26.0`). Set `hosting: "public"` to host at a public link instead (R2 or GitHub Pages, any Instagram route). Carousel mode always needs public hosting for its images.
