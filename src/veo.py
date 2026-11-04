@@ -25,6 +25,38 @@ def _log(label, msg):
     print(f"[{time.strftime('%H:%M:%S')}] {label}: {msg}", flush=True)
 
 
+def _create(client, kwargs, label, limit):
+    """Start the video in the background (returns an id at once, so a stuck request can be polled, logged and
+    cancelled instead of hanging). If the API refuses background mode for this model, fall back to one blocking call."""
+    try:
+        it = client.interactions.create(background=True, **kwargs)
+        _log(label, f"started in background, id={it.id}, status={it.status}")
+    except Exception as e:   # noqa: BLE001 - only a clear 400 about background switches to the blocking call
+        if getattr(e, "status_code", None) != 400:
+            raise
+        _log(label, f"background mode refused ({str(e)[:200]}); using one blocking call instead")
+        return call_with_deadline(lambda: client.interactions.create(**kwargs), limit, "video request")
+    t0, last = time.time(), None
+    while it.status in ("queued", "in_progress"):
+        if time.time() - t0 > limit:
+            try:
+                client.interactions.cancel(it.id)
+                _log(label, "cancelled the request on Google's side")
+            except Exception as e:   # noqa: BLE001
+                _log(label, f"could not cancel ({type(e).__name__}); check usage in AI Studio")
+            raise RuntimeError(f"The video was still '{it.status}' after {max(1, limit // 60)} min, so it was cancelled.")
+        time.sleep(10)
+        try:
+            it = client.interactions.get(id=it.id)
+        except Exception as e:   # noqa: BLE001 - a failed poll is not a failed video; try again
+            _log(label, f"status check failed ({type(e).__name__}), will retry")
+            continue
+        if it.status != last or int(time.time() - t0) % 60 < 10:
+            _log(label, f"status {it.status} after {int(time.time() - t0)}s")
+        last = it.status
+    return it
+
+
 def gen_clip(cfg, action, line, out_path, label="clip"):
     import httpx
     from google import genai
@@ -45,8 +77,8 @@ def gen_clip(cfg, action, line, out_path, label="clip"):
         t0 = time.time()
         _log(label, f"asking Gemini for the video (attempt {i + 1}/2, waits up to {max(1, limit // 60)} min)...")
         try:
-            it = call_with_deadline(lambda: client.interactions.create(**kwargs), limit, "video request")
-            _log(label, f"video came back after {int(time.time() - t0)}s")
+            it = _create(client, kwargs, label, limit)
+            _log(label, f"finished with status {it.status} after {int(time.time() - t0)}s")
             break
         except TimeoutError as e:
             # Not retried: Google may still finish this request and bill it, and a retry would pay twice.
@@ -61,8 +93,10 @@ def gen_clip(cfg, action, line, out_path, label="clip"):
             if not retry or i == 1:
                 raise
             time.sleep(30)
-    if it is None or it.output_video is None or not it.output_video.data:
-        raise RuntimeError(f"No video returned (status {getattr(it, 'status', '?')}).")
+    if it is None or it.status != "completed":
+        raise RuntimeError(f"Video not completed: status {getattr(it, 'status', '?')}, errors {getattr(it, 'errors', None)}")
+    if it.output_video is None or not it.output_video.data:
+        raise RuntimeError(f"No video data returned (status {it.status}).")
     with open(out_path, "wb") as f:
         f.write(base64.b64decode(it.output_video.data))
     _log(label, f"saved {out_path}")
