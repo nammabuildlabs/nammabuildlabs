@@ -6,7 +6,7 @@ Plan for about 1.5 to 2 hours the first time. Never paste a key or token into a 
 | Account | Used for | Cost |
 |---|---|---|
 | GitHub | runs the engine on a schedule | free for a private repo (check current Actions limits) |
-| Google AI Studio (Gemini API) | Gemini writes the scripts and Veo makes the Nammi video, one key for both | text is cheap, video is paid per second and is the main cost |
+| Google AI Studio (Gemini API) | Gemini writes the scripts and Gemini Omni Flash makes the Nammi video, one key for both | text is cheap, video is paid per second and is the main cost |
 | A Facebook Page | needed to post to Instagram by API with direct video upload | free |
 | Telegram | sends you the preview | free |
 | Meta developer account | permission to post to Instagram | free |
@@ -36,7 +36,7 @@ Open `config.yaml` on GitHub (pencil icon). Change `start_date` to the day your 
 
 
 ## Step 3: Gemini key (writes the script and makes the video) and test it
-1. aistudio.google.com, sign in, **Get API key**. Turn on billing for that project, since Veo video is paid.
+1. aistudio.google.com, sign in, **Get API key**. Turn on billing for that project, since video is paid (about $0.10 per second of video, so roughly $1.60 a day for two 8-second clips).
 2. Add secret `GEMINI_API_KEY`. This one key is used for both the scripts and the video.
 3. GitHub: **Actions**, **Test Veo (one clip)**, **Run workflow**. Wait a few minutes. It first tests the script writer, then makes one clip.
 4. Open the run log and check the script it printed. Then scroll to **Artifacts**, download `veo-test-clip`, and watch it. Nammi should look like the reference and say the test line.
@@ -87,7 +87,7 @@ Meta renames its screens often. If something doesn't match, follow Meta's curren
 ## Step 9: Monthly checklist
 1. Watch the Monday health message. If it fails, make a new Page token (Step 6).
 2. Check Google AI Studio billing.
-3. Watch for model name changes (`text_model` and `veo_model` in `config.yaml`).
+3. Watch for model name changes (`text_model` and `video_model` in `config.yaml`).
 4. Review the last month of posts for errors, and delete old media.
 
 
@@ -96,7 +96,7 @@ Meta renames its screens often. If something doesn't match, follow Meta's curren
 |---|---|
 | No workflows listed | `.github` folder didn't upload; push with git |
 | Telegram silent | wrong chat id, or you haven't messaged the bot first |
-| Veo or script error | model name changed (see `config.yaml`) or billing not on |
+| Video or script error | model name changed (see `config.yaml`) or billing not on |
 | Instagram error about the token | token expired; refresh it |
 | Publish says the video was not found | the 07:00 draft job did not finish or its artifact expired (kept 5 days) |
 | Direct upload error | `IG_GRAPH_BASE` not set to the Facebook address, or the app is not set up for Facebook Login for Business |

@@ -3,4 +3,4 @@ pyyaml
 edge-tts
 boto3
 requests
-google-genai
+google-genai>=2.34.0
