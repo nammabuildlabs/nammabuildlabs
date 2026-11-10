@@ -66,7 +66,8 @@ def gen_clip(cfg, action, line, out_path, label="clip"):
     from google.genai import errors
     from google.genai._gaos.lib import compat_errors
     s = cfg["series"]
-    client = genai.Client()
+    # Google's Omni docs call /v1beta/interactions. google-genai 3.x defaults to /v1, where the model returns 404.
+    client = genai.Client(http_options={"api_version": "v1beta"})
     ref = s["reference_image"]
     mime = mimetypes.guess_type(ref)[0] or "image/png"
     image = {"type": "image", "mime_type": mime, "data": base64.b64encode(open(ref, "rb").read()).decode()}
