@@ -58,7 +58,10 @@ def _create(client, kwargs, label, limit):
 
 
 def gen_clip(cfg, action, line, out_path, label="clip"):
-    import httpx
+    try:   # google-genai 3.x uses httpx2, 2.x uses httpx
+        import httpx2 as httpx
+    except ImportError:
+        import httpx
     from google import genai
     from google.genai import errors
     from google.genai._gaos.lib import compat_errors

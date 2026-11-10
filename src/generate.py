@@ -32,7 +32,10 @@ def _llm(cfg, system, user, max_tokens=8192, attempts=3):
     'high demand', or a dropped connection or timeout) it waits briefly and retries, then moves to the next model.
     An unknown model name (404) is skipped."""
     import time
-    import httpx
+    try:   # google-genai 3.x uses httpx2, 2.x uses httpx
+        import httpx2 as httpx
+    except ImportError:
+        import httpx
     from google import genai
     from google.genai import errors, types
     from .deadline import call_with_deadline
