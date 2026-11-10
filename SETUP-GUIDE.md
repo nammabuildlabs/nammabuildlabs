@@ -1,3 +1,5 @@
+> **Superseded.** The daily flow now runs through Telegram and needs no paid Gemini API. See `TELEGRAM-FLOW-GUIDE.md`. The steps below are kept for the older paid-API video flow.
+
 # NammaBuildLabs content engine: step-by-step setup (direct upload)
 
 Plan for about 1.5 to 2 hours the first time. Never paste a key or token into a chat; put them only in GitHub Secrets.

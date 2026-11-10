@@ -1,4 +1,7 @@
-# Content Engine
+# NammaBuildLabs content engine
+
+**Current flow: Telegram.** See `TELEGRAM-FLOW-GUIDE.md`. The bot sends the daily script and Gemini-app prompts, you send the clips back, and it joins, previews and posts them. The older paid-API video flow (Draft daily content, Veo/Omni) is kept as manual-only workflows.
+
 
 Daily Instagram carousel plus a reel every 3rd day, generated with Claude, rendered with Pillow and FFmpeg,
 approved by you, then published through the Instagram Graph API.

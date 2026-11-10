@@ -18,11 +18,22 @@ series:
   video_model: "gemini-omni-1.1-flash"                     # Veo 3.1 Preview was shut down on 2026-10-22; Omni Flash replaces it
   reference_image: "assets/host_reference.png"
   logo: "assets/logo-mark.png"
+  # NAMMI'S FIXED LOOK. Copied word for word from the prompt that made the approved video. Do not reword it:
+  # every daily prompt starts with exactly this text, so she looks the same in every clip.
   host_prompt: >-
-    Vertical 9:16 animated video, about 8 seconds, stylised soft-shaded 3D animation. The host Nammi, a friendly
-    young Indian woman in her early 20s with round dark glasses, long dark hair and a teal hoodie, exactly as in the
-    reference image. Medium close-up, centred, slow push-in. Dark navy studio background with a soft teal, violet and
-    pink glow, a few floating translucent cards and small glowing cubes.
+    Vertical 9:16 animated video, about 8 seconds. A friendly young Indian woman host named Nammi, early 20s, with
+    round dark glasses, long dark hair and a teal hoodie, in a stylised soft-shaded 3D animation style. Medium
+    close-up, centred, slow push-in. Dark navy studio background with a soft teal, violet and pink glow, a few
+    floating translucent cards, and a small glowing cube beside her.
+  speech_style: "warm, upbeat Indian English"
+  prompt_ending: "Natural lip sync. No on-screen text, captions or logos."
 
 hosting: "direct"                # "direct" = upload the video straight to Instagram (Facebook Login route, no public hosting)
                                  # "public" = host it at a public link first (R2 or GitHub Pages) and give Instagram the link
+
+# --- Telegram flow: the bot sends the script, you make the clips in the Gemini app, the bot posts them ---
+telegram_flow:
+  send_reference: true           # send the Nammi reference photo on day 1 (/script sends it again if asked)
+instagram_upload: true           # upload to Instagram when approved (needs IG_ACCESS_TOKEN, IG_USER_ID, IG_GRAPH_BASE)
+youtube_upload: false            # upload to YouTube Shorts when approved (needs YT_* secrets, see TELEGRAM-FLOW-GUIDE.md)
+youtube_privacy: "private"       # YouTube locks API uploads to private until the Google project passes an audit

@@ -1,0 +1,50 @@
+name: Telegram poll
+on:
+  schedule:
+    - cron: "*/30 2-18 * * *"   # every 30 minutes, about 07:30 to 00:30 IST
+  workflow_dispatch:
+concurrency:
+  group: tg-state
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Anything new?
+        id: peek
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+        run: python3 tools/tg_peek.py
+      - if: steps.peek.outputs.has == 'true'
+        uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - if: steps.peek.outputs.has == 'true'
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg fonts-dejavu-core
+      - if: steps.peek.outputs.has == 'true'
+        run: pip install pillow pyyaml requests google-genai
+      - name: Handle your messages
+        if: steps.peek.outputs.has == 'true'
+        run: python -u run.py tg-poll
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_GRAPH_BASE: ${{ vars.IG_GRAPH_BASE }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+      - name: Save state
+        if: always() && steps.peek.outputs.has == 'true'
+        run: |
+          git config user.name "nammabuildlabs"
+          git config user.email "nammabuildlabs@gmail.com"
+          git add tg_state.json
+          git commit -m "Telegram state" || echo "nothing to commit"
+          git pull --rebase || true
+          git push || true

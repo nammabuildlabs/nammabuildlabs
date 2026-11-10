@@ -92,7 +92,7 @@ Rules:
 - Each spoken line is at most 22 words, so it fits in 8 seconds.
 - Never promise marks, placements or guaranteed results. Never mention any employer.
 - For projects involving faces, voices, surveillance, health, money or personal data, include one short responsible-use note (consent, privacy, not professional advice).
-- 'action' describes only what Nammi does and simple floating icons or shapes. Never ask for on-screen text, numbers, logos or captions.
+- 'action' is ONE short clause starting with 'She' and with no full stop, for example 'She nods and gestures towards the floating cards'. It will be followed by 'and says in ...', so do not describe speech. Describe only what Nammi does. Never ask for on-screen text, numbers, logos or captions. Never change her look or the background.
 - Output ONLY valid JSON."""
 
 ROLES = {1: "what it is, how it works in simple terms, and one tip for getting started",
@@ -100,7 +100,7 @@ ROLES = {1: "what it is, how it works in simple terms, and one tip for getting s
          3: "how to build it step by step, the common mistakes, and how to explain it in a viva"}
 
 
-def episode_script(cfg, ep):
+def _episode_script_llm(cfg, ep):
     role = ROLES[1] if ep["parts"] == 1 else ROLES[ep["part"]]
     opener = ("The first line starts with: Hi, I am Nammi, virtual host of NammaBuildLabs." if ep["part"] == 1
               else "The first line starts with: Welcome back.")
@@ -113,7 +113,7 @@ def episode_script(cfg, ep):
             "episode_title: string\n"
             f"caption: string, at most 600 characters, hook first, ends with: Search \"{ep['title'].lower()}\" on GitHub for examples.\n"
             "hashtags: list of at most 5 strings without #\n"
-            "clips: list of exactly 2 objects {action, line}\n"
+            "clips: list of exactly 2 objects {action, line}. For clip 1 of part 1 the action must be exactly: She waves, smiles at the camera\n"
             "claims_to_verify: list of strings (empty if none)")
     last = None
     for _ in range(2):
@@ -125,3 +125,17 @@ def episode_script(cfg, ep):
         except Exception as e:
             last = e
     raise RuntimeError(f"Could not get a valid script: {last}")
+
+
+def episode_script(cfg, ep):
+    """Gemini writes the script when a key is available; otherwise (or if it fails) a plain template is used."""
+    import os
+    from .prompts import template_script
+    if not (os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")):
+        print("No Gemini key found: using the template script.", flush=True)
+        return template_script(cfg, ep)
+    try:
+        return _episode_script_llm(cfg, ep)
+    except Exception as e:
+        print(f"Gemini could not write the script ({type(e).__name__}: {str(e)[:150]}). Using the template script.", flush=True)
+        return template_script(cfg, ep)

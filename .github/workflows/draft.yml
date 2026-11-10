@@ -1,7 +1,5 @@
 name: Draft daily content
 on:
-  schedule:
-    - cron: "30 1 * * *"   # 07:00 IST, ready for the 09:00 publish
   workflow_dispatch:
 permissions:
   contents: write

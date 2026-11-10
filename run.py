@@ -181,6 +181,9 @@ def publish(cfg, d):
 
 def health():
     import requests
+    if not (os.environ.get("IG_ACCESS_TOKEN") and os.environ.get("IG_USER_ID")):
+        print("Instagram is not set up yet; nothing to check.")
+        return
     from src.instagram import GRAPH
     r = requests.get(f"{GRAPH}/{os.environ['IG_USER_ID']}", params={"fields": "username", "access_token": os.environ["IG_ACCESS_TOKEN"]}, timeout=30)
     if not r.ok:
@@ -191,10 +194,11 @@ def health():
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("mode", choices=["draft", "publish", "health", "alert", "veo-test", "llm-test", "cleanup"])
+    ap.add_argument("mode", choices=["draft", "publish", "health", "alert", "veo-test", "llm-test", "cleanup", "tg-daily", "tg-poll", "tg-loop", "yt-auth"])
     ap.add_argument("--sample", action="store_true")
     ap.add_argument("--date")
     ap.add_argument("--msg")
+    ap.add_argument("--force", action="store_true")
     a = ap.parse_args()
     if a.mode == "alert":
         notify(a.msg or "A workflow failed. Open GitHub Actions for details.")
@@ -203,6 +207,23 @@ if __name__ == "__main__":
         health()
         sys.exit(0)
     cfg, cal = load()
+    if a.mode == "tg-daily":
+        from src.botflow import send_daily
+        send_daily(cfg, force=a.force)
+        sys.exit(0)
+    if a.mode == "tg-poll":
+        from src.botflow import poll_once
+        print("Handled", poll_once(cfg), "update(s).", flush=True)
+        sys.exit(0)
+    if a.mode == "tg-loop":
+        from src.botflow import poll_once
+        print("Listening for Telegram messages. Press Ctrl+C to stop.", flush=True)
+        while True:
+            poll_once(cfg, timeout=25)
+    if a.mode == "yt-auth":
+        from src.yt_auth import main as yt_main
+        yt_main()
+        sys.exit(0)
     if a.mode == "cleanup":
         from src.storage import cleanup
         cleanup()

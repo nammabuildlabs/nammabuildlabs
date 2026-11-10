@@ -1,7 +1,5 @@
 name: Publish approved draft
 on:
-  schedule:
-    - cron: "30 3 * * *"   # 09:00 IST, runs only if repo variable AUTO_PUBLISH = true
   workflow_dispatch:
     inputs:
       date:
