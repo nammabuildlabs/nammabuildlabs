@@ -1,1 +1,41 @@
-{"offset": 0, "status": "idle"}
+{
+ "offset": 0,
+ "status": "waiting_clips",
+ "day": "2026-11-10",
+ "day_no": 7,
+ "episode": {
+  "title": "AI Assistant with FastMCP and LangGraph",
+  "level": "advanced",
+  "part": 3,
+  "parts": 3,
+  "note": "An MCP server exposing tools through FastMCP, and a LangGraph agent that calls them; state handling and tool calling."
+ },
+ "script": {
+  "episode_title": "AI Assistant with FastMCP and LangGraph",
+  "caption": "AI Assistant with FastMCP and LangGraph: part 3 of 3. An MCP server exposing tools through FastMCP, and a LangGraph agent that calls them; state handling and tool calling. Search \"ai assistant with fastmcp and langgraph\" on GitHub for examples.",
+  "hashtags": [
+   "finalyearproject",
+   "engineeringstudents",
+   "bengaluru",
+   "machinelearning",
+   "python"
+  ],
+  "clips": [
+   {
+    "action": "She smiles and nods at the camera",
+    "line": "Welcome back. Today: AI Assistant with FastMCP and LangGraph."
+   },
+   {
+    "action": "She gestures towards the floating cards beside her",
+    "line": "An MCP server exposing tools through FastMCP, and a LangGraph agent that. Want a mentor to build it with you? Registration link"
+   }
+  ],
+  "claims_to_verify": [
+   "Written from a template, not by AI. Read it before posting."
+  ]
+ },
+ "clips": [],
+ "seen": [],
+ "final": null,
+ "ref_sent": true
+}
