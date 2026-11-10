@@ -15,7 +15,7 @@ reel_style: "mascot"            # "mascot" = illustrated host narrates, "text" =
 daily_format: "series"          # "series" = daily AI video episode at 9:00 IST, "carousel" = slides + reel every 3rd day
 series:
   rotation: [beginner, beginner, intermediate, advanced]   # order projects are picked; episodes per project: 1 / 2 / 3
-  video_model: "gemini-omni-1.1-flash"                     # Veo 3.1 Preview was shut down on 2026-10-22; Omni Flash replaces it
+  video_model: "gemini-omni-1.2-flash"                     # Veo 3.1 Preview was shut down on 2026-10-22; Omni Flash replaces it (1.1 is shut down 2026-12-03)
   reference_image: "assets/host_reference.png"
   logo: "assets/logo-mark.png"
   # NAMMI'S FIXED LOOK. Copied word for word from the prompt that made the approved video. Do not reword it:
