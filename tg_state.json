@@ -1,6 +1,6 @@
 {
  "offset": 145531771,
- "status": "awaiting_approval",
+ "status": "waiting_clips",
  "day": "2026-11-10",
  "day_no": 7,
  "episode": {
@@ -34,18 +34,8 @@
    "Written from a template, not by AI. Read it before posting."
   ]
  },
- "clips": [
-  {
-   "file_id": "BAACAgUAAxkBAAMdavNTfanO16YFEGI_erdUOTeGZpYAAuYiAALd7ZlXjFzYpThnMxM9BA",
-   "msg": 29
-  }
- ],
- "seen": [
-  "AgAD5iIAAt3tmVc"
- ],
- "final": {
-  "file_id": "BAACAgUAAxkDAAMpavNT43MvPpbpX9Ns6J5Jk7-aA5wAAuciAALd7ZlXBqEbk1jr7349BA",
-  "msg": 41
- },
+ "clips": [],
+ "seen": [],
+ "final": null,
  "ref_sent": true
 }
