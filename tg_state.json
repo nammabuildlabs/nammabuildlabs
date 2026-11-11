@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-10",
- "day_no": 7,
+ "day": "2026-11-11",
+ "day_no": 8,
  "episode": {
-  "title": "AI Assistant with FastMCP and LangGraph",
-  "level": "advanced",
-  "part": 3,
-  "parts": 3,
-  "note": "An MCP server exposing tools through FastMCP, and a LangGraph agent that calls them; state handling and tool calling."
+  "title": "Autocorrect Tool",
+  "level": "beginner",
+  "part": 1,
+  "parts": 1,
+  "note": "Edit distance (Levenshtein) plus a word-frequency list built from a text corpus, in the style of Norvig's spelling corrector."
  },
  "script": {
-  "episode_title": "AI Assistant with FastMCP and LangGraph",
-  "caption": "AI Assistant with FastMCP and LangGraph: part 3 of 3. An MCP server exposing tools through FastMCP, and a LangGraph agent that calls them; state handling and tool calling. Search \"ai assistant with fastmcp and langgraph\" on GitHub for examples.",
+  "episode_title": "Autocorrect Tool",
+  "caption": "Autocorrect Tool: part 1 of 1. Edit distance (Levenshtein) plus a word-frequency list built from a text corpus, in the style of Norvig's spelling corrector. Search \"autocorrect tool\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -22,12 +22,12 @@
   ],
   "clips": [
    {
-    "action": "She smiles and nods at the camera",
-    "line": "Welcome back. Today: AI Assistant with FastMCP and LangGraph."
+    "action": "She waves, smiles at the camera",
+    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: Autocorrect Tool."
    },
    {
     "action": "She gestures towards the floating cards beside her",
-    "line": "An MCP server exposing tools through FastMCP, and a LangGraph agent that. Want a mentor to build it with you? Registration link"
+    "line": "Edit distance (Levenshtein) plus a word-frequency list built from a text corpus. Want a mentor to build it with you? Registration link"
    }
   ],
   "claims_to_verify": [
