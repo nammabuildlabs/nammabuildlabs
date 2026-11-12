@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-11",
- "day_no": 8,
+ "day": "2026-11-12",
+ "day_no": 9,
  "episode": {
-  "title": "Autocorrect Tool",
+  "title": "Translator App",
   "level": "beginner",
   "part": 1,
   "parts": 1,
-  "note": "Edit distance (Levenshtein) plus a word-frequency list built from a text corpus, in the style of Norvig's spelling corrector."
+  "note": "Pretrained translation models from Hugging Face such as MarianMT (Helsinki-NLP), or a translation API; Streamlit interface."
  },
  "script": {
-  "episode_title": "Autocorrect Tool",
-  "caption": "Autocorrect Tool: part 1 of 1. Edit distance (Levenshtein) plus a word-frequency list built from a text corpus, in the style of Norvig's spelling corrector. Search \"autocorrect tool\" on GitHub for examples.",
+  "episode_title": "Translator App",
+  "caption": "Translator App: part 1 of 1. Pretrained translation models from Hugging Face such as MarianMT (Helsinki-NLP), or a translation API; Streamlit interface. Search \"translator app\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -23,11 +23,11 @@
   "clips": [
    {
     "action": "She waves, smiles at the camera",
-    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: Autocorrect Tool."
+    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: Translator App."
    },
    {
     "action": "She gestures towards the floating cards beside her",
-    "line": "Edit distance (Levenshtein) plus a word-frequency list built from a text corpus. Want a mentor to build it with you? Registration link"
+    "line": "Pretrained translation models from Hugging Face such as MarianMT (Helsinki-NLP), or a. Want a mentor to build it with you? Registration link"
    }
   ],
   "claims_to_verify": [
