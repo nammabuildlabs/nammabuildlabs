@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-12",
- "day_no": 9,
+ "day": "2026-11-13",
+ "day_no": 10,
  "episode": {
-  "title": "Translator App",
-  "level": "beginner",
+  "title": "UPI Fraud Detection",
+  "level": "intermediate",
   "part": 1,
-  "parts": 1,
-  "note": "Pretrained translation models from Hugging Face such as MarianMT (Helsinki-NLP), or a translation API; Streamlit interface."
+  "parts": 2,
+  "note": "Real UPI data is not public, so use simulated transactions such as PaySim-style data; features like amount, time and transaction velocity."
  },
  "script": {
-  "episode_title": "Translator App",
-  "caption": "Translator App: part 1 of 1. Pretrained translation models from Hugging Face such as MarianMT (Helsinki-NLP), or a translation API; Streamlit interface. Search \"translator app\" on GitHub for examples.",
+  "episode_title": "UPI Fraud Detection",
+  "caption": "UPI Fraud Detection: part 1 of 2. Real UPI data is not public, so use simulated transactions such as PaySim-style data; features like amount, time and transaction velocity. Search \"upi fraud detection\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -23,11 +23,11 @@
   "clips": [
    {
     "action": "She waves, smiles at the camera",
-    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: Translator App."
+    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: UPI Fraud Detection."
    },
    {
     "action": "She gestures towards the floating cards beside her",
-    "line": "Pretrained translation models from Hugging Face such as MarianMT (Helsinki-NLP), or a. Want a mentor to build it with you? Registration link"
+    "line": "Real UPI data is not public, so use simulated transactions such as. Join me next time for the next part."
    }
   ],
   "claims_to_verify": [
