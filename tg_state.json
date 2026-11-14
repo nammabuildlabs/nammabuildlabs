@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-13",
- "day_no": 10,
+ "day": "2026-11-14",
+ "day_no": 11,
  "episode": {
   "title": "UPI Fraud Detection",
   "level": "intermediate",
-  "part": 1,
+  "part": 2,
   "parts": 2,
   "note": "Real UPI data is not public, so use simulated transactions such as PaySim-style data; features like amount, time and transaction velocity."
  },
  "script": {
   "episode_title": "UPI Fraud Detection",
-  "caption": "UPI Fraud Detection: part 1 of 2. Real UPI data is not public, so use simulated transactions such as PaySim-style data; features like amount, time and transaction velocity. Search \"upi fraud detection\" on GitHub for examples.",
+  "caption": "UPI Fraud Detection: part 2 of 2. Real UPI data is not public, so use simulated transactions such as PaySim-style data; features like amount, time and transaction velocity. Search \"upi fraud detection\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -22,12 +22,12 @@
   ],
   "clips": [
    {
-    "action": "She waves, smiles at the camera",
-    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: UPI Fraud Detection."
+    "action": "She smiles and nods at the camera",
+    "line": "Welcome back. Today: UPI Fraud Detection."
    },
    {
     "action": "She gestures towards the floating cards beside her",
-    "line": "Real UPI data is not public, so use simulated transactions such as. Join me next time for the next part."
+    "line": "Real UPI data is not public, so use simulated transactions such as. Want a mentor to build it with you? Registration link"
    }
   ],
   "claims_to_verify": [
