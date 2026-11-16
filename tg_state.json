@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-15",
- "day_no": 12,
+ "day": "2026-11-16",
+ "day_no": 13,
  "episode": {
   "title": "Cybersecurity Intelligence Agent",
   "level": "advanced",
-  "part": 1,
+  "part": 2,
   "parts": 3,
   "note": "LLM agent that summarises CVE entries from the NVD and threat reports and maps them to MITRE ATT&CK; read-only, with human review."
  },
  "script": {
   "episode_title": "Cybersecurity Intelligence Agent",
-  "caption": "Cybersecurity Intelligence Agent: part 1 of 3. LLM agent that summarises CVE entries from the NVD and threat reports and maps them to MITRE ATT&CK; read-only, with human review. Search \"cybersecurity intelligence agent\" on GitHub for examples.",
+  "caption": "Cybersecurity Intelligence Agent: part 2 of 3. LLM agent that summarises CVE entries from the NVD and threat reports and maps them to MITRE ATT&CK; read-only, with human review. Search \"cybersecurity intelligence agent\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -22,8 +22,8 @@
   ],
   "clips": [
    {
-    "action": "She waves, smiles at the camera",
-    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: Cybersecurity Intelligence Agent."
+    "action": "She smiles and nods at the camera",
+    "line": "Welcome back. Today: Cybersecurity Intelligence Agent."
    },
    {
     "action": "She gestures towards the floating cards beside her",
