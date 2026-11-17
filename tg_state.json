@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-16",
- "day_no": 13,
+ "day": "2026-11-17",
+ "day_no": 14,
  "episode": {
   "title": "Cybersecurity Intelligence Agent",
   "level": "advanced",
-  "part": 2,
+  "part": 3,
   "parts": 3,
   "note": "LLM agent that summarises CVE entries from the NVD and threat reports and maps them to MITRE ATT&CK; read-only, with human review."
  },
  "script": {
   "episode_title": "Cybersecurity Intelligence Agent",
-  "caption": "Cybersecurity Intelligence Agent: part 2 of 3. LLM agent that summarises CVE entries from the NVD and threat reports and maps them to MITRE ATT&CK; read-only, with human review. Search \"cybersecurity intelligence agent\" on GitHub for examples.",
+  "caption": "Cybersecurity Intelligence Agent: part 3 of 3. LLM agent that summarises CVE entries from the NVD and threat reports and maps them to MITRE ATT&CK; read-only, with human review. Search \"cybersecurity intelligence agent\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -27,7 +27,7 @@
    },
    {
     "action": "She gestures towards the floating cards beside her",
-    "line": "LLM agent that summarises CVE entries from the NVD and threat reports. Join me next time for the next part."
+    "line": "LLM agent that summarises CVE entries from the NVD and threat reports. Want a mentor to build it with you? Registration link"
    }
   ],
   "claims_to_verify": [
