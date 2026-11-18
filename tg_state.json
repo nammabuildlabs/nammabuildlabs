@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-17",
- "day_no": 14,
+ "day": "2026-11-18",
+ "day_no": 15,
  "episode": {
-  "title": "Cybersecurity Intelligence Agent",
-  "level": "advanced",
-  "part": 3,
-  "parts": 3,
-  "note": "LLM agent that summarises CVE entries from the NVD and threat reports and maps them to MITRE ATT&CK; read-only, with human review."
+  "title": "Spam Email Classifier",
+  "level": "beginner",
+  "part": 1,
+  "parts": 1,
+  "note": "Naive Bayes or logistic regression on TF-IDF features; SMS Spam Collection or Enron email dataset."
  },
  "script": {
-  "episode_title": "Cybersecurity Intelligence Agent",
-  "caption": "Cybersecurity Intelligence Agent: part 3 of 3. LLM agent that summarises CVE entries from the NVD and threat reports and maps them to MITRE ATT&CK; read-only, with human review. Search \"cybersecurity intelligence agent\" on GitHub for examples.",
+  "episode_title": "Spam Email Classifier",
+  "caption": "Spam Email Classifier: part 1 of 1. Naive Bayes or logistic regression on TF-IDF features; SMS Spam Collection or Enron email dataset. Search \"spam email classifier\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -22,12 +22,12 @@
   ],
   "clips": [
    {
-    "action": "She smiles and nods at the camera",
-    "line": "Welcome back. Today: Cybersecurity Intelligence Agent."
+    "action": "She waves, smiles at the camera",
+    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: Spam Email Classifier."
    },
    {
     "action": "She gestures towards the floating cards beside her",
-    "line": "LLM agent that summarises CVE entries from the NVD and threat reports. Want a mentor to build it with you? Registration link"
+    "line": "Naive Bayes or logistic regression on TF-IDF features; SMS Spam Collection or. Want a mentor to build it with you? Registration link"
    }
   ],
   "claims_to_verify": [
