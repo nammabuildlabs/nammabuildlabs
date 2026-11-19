@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-18",
- "day_no": 15,
+ "day": "2026-11-19",
+ "day_no": 16,
  "episode": {
-  "title": "Spam Email Classifier",
+  "title": "Smart Email Sorter",
   "level": "beginner",
   "part": 1,
   "parts": 1,
-  "note": "Naive Bayes or logistic regression on TF-IDF features; SMS Spam Collection or Enron email dataset."
+  "note": "Multi-class text classification of emails into categories with TF-IDF and a linear classifier, using a small hand-labelled set."
  },
  "script": {
-  "episode_title": "Spam Email Classifier",
-  "caption": "Spam Email Classifier: part 1 of 1. Naive Bayes or logistic regression on TF-IDF features; SMS Spam Collection or Enron email dataset. Search \"spam email classifier\" on GitHub for examples.",
+  "episode_title": "Smart Email Sorter",
+  "caption": "Smart Email Sorter: part 1 of 1. Multi-class text classification of emails into categories with TF-IDF and a linear classifier, using a small hand-labelled set. Search \"smart email sorter\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -23,11 +23,11 @@
   "clips": [
    {
     "action": "She waves, smiles at the camera",
-    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: Spam Email Classifier."
+    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: Smart Email Sorter."
    },
    {
     "action": "She gestures towards the floating cards beside her",
-    "line": "Naive Bayes or logistic regression on TF-IDF features; SMS Spam Collection or. Want a mentor to build it with you? Registration link"
+    "line": "Multi-class text classification of emails into categories with TF-IDF and a linear. Want a mentor to build it with you? Registration link"
    }
   ],
   "claims_to_verify": [
