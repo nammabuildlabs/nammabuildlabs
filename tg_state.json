@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-19",
- "day_no": 16,
+ "day": "2026-11-20",
+ "day_no": 17,
  "episode": {
-  "title": "Smart Email Sorter",
-  "level": "beginner",
+  "title": "Fake News Detection",
+  "level": "intermediate",
   "part": 1,
-  "parts": 1,
-  "note": "Multi-class text classification of emails into categories with TF-IDF and a linear classifier, using a small hand-labelled set."
+  "parts": 2,
+  "note": "TF-IDF with a linear classifier as a baseline, then fine-tune BERT; LIAR or ISOT dataset; discuss label bias."
  },
  "script": {
-  "episode_title": "Smart Email Sorter",
-  "caption": "Smart Email Sorter: part 1 of 1. Multi-class text classification of emails into categories with TF-IDF and a linear classifier, using a small hand-labelled set. Search \"smart email sorter\" on GitHub for examples.",
+  "episode_title": "Fake News Detection",
+  "caption": "Fake News Detection: part 1 of 2. TF-IDF with a linear classifier as a baseline, then fine-tune BERT; LIAR or ISOT dataset; discuss label bias. Search \"fake news detection\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -23,11 +23,11 @@
   "clips": [
    {
     "action": "She waves, smiles at the camera",
-    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: Smart Email Sorter."
+    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: Fake News Detection."
    },
    {
     "action": "She gestures towards the floating cards beside her",
-    "line": "Multi-class text classification of emails into categories with TF-IDF and a linear. Want a mentor to build it with you? Registration link"
+    "line": "TF-IDF with a linear classifier as a baseline, then fine-tune BERT; LIAR. Join me next time for the next part."
    }
   ],
   "claims_to_verify": [
