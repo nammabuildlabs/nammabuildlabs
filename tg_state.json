@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-22",
- "day_no": 19,
+ "day": "2026-11-23",
+ "day_no": 20,
  "episode": {
   "title": "AI Chatbot with Transformer Models",
   "level": "advanced",
-  "part": 1,
+  "part": 2,
   "parts": 3,
   "note": "Fine-tune a small pretrained transformer such as Flan-T5 or DialoGPT with Hugging Face on a dialogue dataset; compare with an API model."
  },
  "script": {
   "episode_title": "AI Chatbot with Transformer Models",
-  "caption": "AI Chatbot with Transformer Models: part 1 of 3. Fine-tune a small pretrained transformer such as Flan-T5 or DialoGPT with Hugging Face on a dialogue dataset; compare with an API model. Search \"ai chatbot with transformer models\" on GitHub for examples.",
+  "caption": "AI Chatbot with Transformer Models: part 2 of 3. Fine-tune a small pretrained transformer such as Flan-T5 or DialoGPT with Hugging Face on a dialogue dataset; compare with an API model. Search \"ai chatbot with transformer models\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -22,8 +22,8 @@
   ],
   "clips": [
    {
-    "action": "She waves, smiles at the camera",
-    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: AI Chatbot with Transformer Models."
+    "action": "She smiles and nods at the camera",
+    "line": "Welcome back. Today: AI Chatbot with Transformer Models."
    },
    {
     "action": "She gestures towards the floating cards beside her",
