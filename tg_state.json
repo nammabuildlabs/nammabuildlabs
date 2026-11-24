@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-23",
- "day_no": 20,
+ "day": "2026-11-24",
+ "day_no": 21,
  "episode": {
   "title": "AI Chatbot with Transformer Models",
   "level": "advanced",
-  "part": 2,
+  "part": 3,
   "parts": 3,
   "note": "Fine-tune a small pretrained transformer such as Flan-T5 or DialoGPT with Hugging Face on a dialogue dataset; compare with an API model."
  },
  "script": {
   "episode_title": "AI Chatbot with Transformer Models",
-  "caption": "AI Chatbot with Transformer Models: part 2 of 3. Fine-tune a small pretrained transformer such as Flan-T5 or DialoGPT with Hugging Face on a dialogue dataset; compare with an API model. Search \"ai chatbot with transformer models\" on GitHub for examples.",
+  "caption": "AI Chatbot with Transformer Models: part 3 of 3. Fine-tune a small pretrained transformer such as Flan-T5 or DialoGPT with Hugging Face on a dialogue dataset; compare with an API model. Search \"ai chatbot with transformer models\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -27,7 +27,7 @@
    },
    {
     "action": "She gestures towards the floating cards beside her",
-    "line": "Fine-tune a small pretrained transformer such as Flan-T5 or DialoGPT with Hugging. Join me next time for the next part."
+    "line": "Fine-tune a small pretrained transformer such as Flan-T5 or DialoGPT with Hugging. Want a mentor to build it with you? Registration link"
    }
   ],
   "claims_to_verify": [
