@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-24",
- "day_no": 21,
+ "day": "2026-11-25",
+ "day_no": 22,
  "episode": {
-  "title": "AI Chatbot with Transformer Models",
-  "level": "advanced",
-  "part": 3,
-  "parts": 3,
-  "note": "Fine-tune a small pretrained transformer such as Flan-T5 or DialoGPT with Hugging Face on a dialogue dataset; compare with an API model."
+  "title": "AI-Powered Grammar Corrector",
+  "level": "beginner",
+  "part": 1,
+  "parts": 1,
+  "note": "Fine-tuned T5 for grammar correction, or the LanguageTool library; evaluate with the JFLEG dataset."
  },
  "script": {
-  "episode_title": "AI Chatbot with Transformer Models",
-  "caption": "AI Chatbot with Transformer Models: part 3 of 3. Fine-tune a small pretrained transformer such as Flan-T5 or DialoGPT with Hugging Face on a dialogue dataset; compare with an API model. Search \"ai chatbot with transformer models\" on GitHub for examples.",
+  "episode_title": "AI-Powered Grammar Corrector",
+  "caption": "AI-Powered Grammar Corrector: part 1 of 1. Fine-tuned T5 for grammar correction, or the LanguageTool library; evaluate with the JFLEG dataset. Search \"ai-powered grammar corrector\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -22,12 +22,12 @@
   ],
   "clips": [
    {
-    "action": "She smiles and nods at the camera",
-    "line": "Welcome back. Today: AI Chatbot with Transformer Models."
+    "action": "She waves, smiles at the camera",
+    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: AI-Powered Grammar Corrector."
    },
    {
     "action": "She gestures towards the floating cards beside her",
-    "line": "Fine-tune a small pretrained transformer such as Flan-T5 or DialoGPT with Hugging. Want a mentor to build it with you? Registration link"
+    "line": "Fine-tuned T5 for grammar correction, or the LanguageTool library; evaluate with the. Want a mentor to build it with you? Registration link"
    }
   ],
   "claims_to_verify": [
