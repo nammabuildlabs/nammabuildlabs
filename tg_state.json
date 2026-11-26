@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-25",
- "day_no": 22,
+ "day": "2026-11-26",
+ "day_no": 23,
  "episode": {
-  "title": "AI-Powered Grammar Corrector",
+  "title": "Employee Salary Prediction",
   "level": "beginner",
   "part": 1,
   "parts": 1,
-  "note": "Fine-tuned T5 for grammar correction, or the LanguageTool library; evaluate with the JFLEG dataset."
+  "note": "Regression on tabular data (experience, role, education) with scikit-learn; compare linear regression and random forest."
  },
  "script": {
-  "episode_title": "AI-Powered Grammar Corrector",
-  "caption": "AI-Powered Grammar Corrector: part 1 of 1. Fine-tuned T5 for grammar correction, or the LanguageTool library; evaluate with the JFLEG dataset. Search \"ai-powered grammar corrector\" on GitHub for examples.",
+  "episode_title": "Employee Salary Prediction",
+  "caption": "Employee Salary Prediction: part 1 of 1. Regression on tabular data (experience, role, education) with scikit-learn; compare linear regression and random forest. Search \"employee salary prediction\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -23,11 +23,11 @@
   "clips": [
    {
     "action": "She waves, smiles at the camera",
-    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: AI-Powered Grammar Corrector."
+    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: Employee Salary Prediction."
    },
    {
     "action": "She gestures towards the floating cards beside her",
-    "line": "Fine-tuned T5 for grammar correction, or the LanguageTool library; evaluate with the. Want a mentor to build it with you? Registration link"
+    "line": "Regression on tabular data (experience, role, education) with scikit-learn; compare linear regression. Want a mentor to build it with you? Registration link"
    }
   ],
   "claims_to_verify": [
