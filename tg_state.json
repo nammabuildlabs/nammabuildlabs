@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-26",
- "day_no": 23,
+ "day": "2026-11-27",
+ "day_no": 24,
  "episode": {
-  "title": "Employee Salary Prediction",
-  "level": "beginner",
+  "title": "Disease Prediction System",
+  "level": "intermediate",
   "part": 1,
-  "parts": 1,
-  "note": "Regression on tabular data (experience, role, education) with scikit-learn; compare linear regression and random forest."
+  "parts": 2,
+  "note": "Symptom-based classification with random forest on a public symptom-disease dataset; educational only, not medical advice."
  },
  "script": {
-  "episode_title": "Employee Salary Prediction",
-  "caption": "Employee Salary Prediction: part 1 of 1. Regression on tabular data (experience, role, education) with scikit-learn; compare linear regression and random forest. Search \"employee salary prediction\" on GitHub for examples.",
+  "episode_title": "Disease Prediction System",
+  "caption": "Disease Prediction System: part 1 of 2. Symptom-based classification with random forest on a public symptom-disease dataset; educational only, not medical advice. Search \"disease prediction system\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -23,11 +23,11 @@
   "clips": [
    {
     "action": "She waves, smiles at the camera",
-    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: Employee Salary Prediction."
+    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: Disease Prediction System."
    },
    {
     "action": "She gestures towards the floating cards beside her",
-    "line": "Regression on tabular data (experience, role, education) with scikit-learn; compare linear regression. Want a mentor to build it with you? Registration link"
+    "line": "Symptom-based classification with random forest on a public symptom-disease dataset; educational only. Join me next time for the next part."
    }
   ],
   "claims_to_verify": [
