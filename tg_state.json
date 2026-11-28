@@ -1,18 +1,18 @@
 {
  "offset": 145531775,
  "status": "waiting_clips",
- "day": "2026-11-27",
- "day_no": 24,
+ "day": "2026-11-28",
+ "day_no": 25,
  "episode": {
   "title": "Disease Prediction System",
   "level": "intermediate",
-  "part": 1,
+  "part": 2,
   "parts": 2,
   "note": "Symptom-based classification with random forest on a public symptom-disease dataset; educational only, not medical advice."
  },
  "script": {
   "episode_title": "Disease Prediction System",
-  "caption": "Disease Prediction System: part 1 of 2. Symptom-based classification with random forest on a public symptom-disease dataset; educational only, not medical advice. Search \"disease prediction system\" on GitHub for examples.",
+  "caption": "Disease Prediction System: part 2 of 2. Symptom-based classification with random forest on a public symptom-disease dataset; educational only, not medical advice. Search \"disease prediction system\" on GitHub for examples.",
   "hashtags": [
    "finalyearproject",
    "engineeringstudents",
@@ -22,12 +22,12 @@
   ],
   "clips": [
    {
-    "action": "She waves, smiles at the camera",
-    "line": "Hi, I am Nammi, virtual host of NammaBuildLabs. Today: Disease Prediction System."
+    "action": "She smiles and nods at the camera",
+    "line": "Welcome back. Today: Disease Prediction System."
    },
    {
     "action": "She gestures towards the floating cards beside her",
-    "line": "Symptom-based classification with random forest on a public symptom-disease dataset; educational only. Join me next time for the next part."
+    "line": "Symptom-based classification with random forest on a public symptom-disease dataset; educational only. Want a mentor to build it with you? Registration link"
    }
   ],
   "claims_to_verify": [
